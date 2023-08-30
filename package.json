@@ -4,11 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint .",
     "test": "jest"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "eslint": "^8.48.0",
     "jest": "^27.5.1"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "joi": "^17.10.0"
   }
 }
