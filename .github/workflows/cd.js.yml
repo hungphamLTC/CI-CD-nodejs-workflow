@@ -47,9 +47,13 @@ jobs:
             aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
             aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
             aaws configure set default.region $AWS_REGION
+            sudo usermod -aG docker ubuntu
+            newgrp docker
             aws ecr get-login-password --region ${AWS_REGION} | sudo docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
-            sudo docker rm -f `sudo docker ps -q` 
-            sudo docker run -d -p 8080:3000 $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+            sudo docker pull ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPOSITORY}:${IMAGE_TAG}
+            docker stop nodejs-app || true
+            docker rm nodejs-app || true
+            docker run -d -p 8080:3000 $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           host: ${{ secrets.PUB_IP }}
           username: ubuntu
           key: ${{ secrets.NODEJS_KEY }}
