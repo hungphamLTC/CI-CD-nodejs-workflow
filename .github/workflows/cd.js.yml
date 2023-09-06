@@ -2,7 +2,7 @@ name: Deployment Workflow
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "hungphamLTC/feature/#12-ssh-workflow-deployment" ]
 
 jobs:
   docker-build-push:
@@ -53,10 +53,10 @@ jobs:
             sudo docker pull ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPOSITORY}:${IMAGE_TAG}
             docker stop nodejs-app || true
             docker rm nodejs-app || true
-            docker run -d -p 8080:3000 $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+            docker run -d -p 8080:3000 --name nodejs-app "$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
           host: ${{ secrets.PUB_IP }}
           username: ubuntu
-          key: ${{ secrets.NODEJS_KEY }}
+          key: ${{ secrets.UBUNTU_KEY }}
           port: 22
           envs: AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY,AWS_REGION,ECR_REGISTRY,ECR_REPOSITORY,IMAGE_TAG h
       - name: Clean up
