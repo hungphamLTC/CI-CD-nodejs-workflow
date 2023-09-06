@@ -50,7 +50,7 @@ jobs:
             sudo usermod -aG docker ubuntu
             newgrp docker
             aws ecr get-login-password --region ${AWS_REGION} | sudo docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
-            sudo docker pull ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPOSITORY}:${IMAGE_TAG}
+            sudo docker pull ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPOSITORY}:${IMAGE_TAG}
             docker stop nodejs-app || true
             docker rm nodejs-app || true
             docker run -d -p 8080:3000 --name nodejs-app "$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
