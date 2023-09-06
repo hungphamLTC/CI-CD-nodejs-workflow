@@ -51,7 +51,6 @@ jobs:
             sudo usermod -aG docker ubuntu
             newgrp docker
             aws ecr get-login-password --region $AWS_REGION | sudo docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
-            sudo docker pull $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
           host: ${{ secrets.PUB_IP }}
           username: ubuntu
           key: ${{ secrets.UBUNTU_KEY }}
