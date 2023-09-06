@@ -51,7 +51,7 @@ jobs:
             sudo usermod -aG docker ubuntu
             newgrp docker
             aws ecr get-login-password --region $AWS_REGION | sudo docker login --username AWS --password-stdin $ECR_REGISTRY
-            sudo docker pull $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+            sudo docker pull $IMAGE_NAME:$IMAGE_TAG
             
             echo "AWS_REGION: $AWS_REGION"
             echo "ECR_REGISTRY: $ECR_REGISTRY"
@@ -59,6 +59,8 @@ jobs:
             echo "AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID"
             echo "AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY"
             echo $ECR_REGISTRY > /home/ubuntu/test.txt
+            echo $IMAGE_NAME >> /home/ubuntu/test.txt
+            echo $IMAGE_TAG >> /home/ubuntu/test.txt
             echo "AWS Account Id: $AWS_DOCKER_KEY"
           host: ${{ secrets.PUB_IP }}
           username: ubuntu
