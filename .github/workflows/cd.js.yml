@@ -38,7 +38,7 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_ACCOUNT_ID: ${{ secrets.AWS_DOCKER_KEY }}
+          AWS_DOCKER_KEY: ${{ secrets.AWS_DOCKER_KEY }}
           AWS_REGION: us-east-1
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: nodejs-demo
@@ -50,12 +50,13 @@ jobs:
             aws configure set default.region $AWS_REGION
             sudo usermod -aG docker ubuntu
             newgrp docker
-            echo "AWS Account Id: $AWS_ACCOUNT_ID"
+            echo "AWS Account Id: $AWS_DOCKER_KEY"
             echo "AWS_REGION: $AWS_REGION"
             echo "ECR_REGISTRY: $ECR_REGISTRY"
             echo "ECR_REPOSITORY: $ECR_REPOSITORY"
             echo "AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID"
-            echo $AWS_ACCOUNT_ID > /home/ubuntu/test.txt
+            echo "AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY"
+            echo $AWS_DOCKER_KEY > /home/ubuntu/test.txt
             
           host: ${{ secrets.PUB_IP }}
           username: ubuntu
