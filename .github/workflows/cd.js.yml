@@ -50,7 +50,7 @@ jobs:
             aws configure set default.region $AWS_REGION
             sudo usermod -aG docker ubuntu
             newgrp docker
-            aws ecr get-login-password --region $AWS_REGION | sudo docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
+            docker login -u AWS -p $(aws ecr get-login-password --region $AWS_REGION) $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
           host: ${{ secrets.PUB_IP }}
           username: ubuntu
           key: ${{ secrets.UBUNTU_KEY }}
