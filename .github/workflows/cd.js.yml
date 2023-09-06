@@ -51,6 +51,10 @@ jobs:
             sudo usermod -aG docker ubuntu
             newgrp docker
             echo "AWS Account Id: $AWS_ACCOUNT_ID"
+            echo "AWS_REGION: $AWS_REGION"
+            echo "ECR_REGISTRY: $ECR_REGISTRY"
+            echo "ECR_REPOSITORY: $ECR_REPOSITORY"
+            echo "AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID"
             echo $AWS_ACCOUNT_ID > /home/ubuntu/test.txt
             
           host: ${{ secrets.PUB_IP }}
