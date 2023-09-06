@@ -50,13 +50,12 @@ jobs:
             aws configure set default.region $AWS_REGION
             sudo usermod -aG docker ubuntu
             newgrp docker
-            aws ecr get-login-password --region $AWS_REGION | sudo docker login --username AWS --password-stdin $ECR_REGISTRY.dkr.ecr.$AWS_REGION.amazonaws.com
             echo "AWS_REGION: $AWS_REGION"
             echo "ECR_REGISTRY: $ECR_REGISTRY"
             echo "ECR_REPOSITORY: $ECR_REPOSITORY"
             echo "AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID"
             echo "AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY"
-            echo $AWS_DOCKER_KEY > /home/ubuntu/test.txt
+            echo $ECR_REGISTRY > /home/ubuntu/test.txt
             echo "AWS Account Id: $AWS_DOCKER_KEY"
           host: ${{ secrets.PUB_IP }}
           username: ubuntu
