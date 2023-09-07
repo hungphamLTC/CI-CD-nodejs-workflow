@@ -59,6 +59,8 @@ jobs:
             echo "ECR_REPOSITORY: $ECR_REPOSITORY"
             echo "AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID"
             echo "AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY"
+            echo "IMAGE_NAME: $IMAGE_NAME"
+            echo "IMAGE_TAG: $IMAGE_TAG"
             echo $ECR_REGISTRY > /home/ubuntu/test.txt
             echo $IMAGE_NAME >> /home/ubuntu/test.txt
             echo $IMAGE_TAG >> /home/ubuntu/test.txt
